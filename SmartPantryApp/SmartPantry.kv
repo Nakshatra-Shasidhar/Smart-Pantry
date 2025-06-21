@@ -1,0 +1,210 @@
+<InventoryCard@BoxLayout>:
+    orientation: 'horizontal'
+    size_hint_y: None
+    height: '60dp'
+    padding: 10
+    spacing: 10
+    canvas.before:
+        Color:
+            rgba: 1, 0.9, 0.8, 1  # Cream
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [10]
+    item_text: ''
+    remove_callback: lambda *args: None
+    suggest_callback: lambda *args: None
+    Label:
+        text: root.item_text
+        color: 1, 0.4, 0, 1  # Orange text
+        size_hint_x: 0.6
+    BoxLayout:
+        size_hint_x: 0.4
+        spacing: 5
+        Button:
+            text: "Remove"
+            background_color: 1, 0.6, 0, 1
+            on_press: root.remove_callback()
+        Button:
+            text: "Suggest"
+            background_color: 1, 0.5, 0, 1
+            on_press: root.suggest_callback()
+
+<CreatePasswordScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+        canvas.before:
+            Color:
+                rgba: 1, 0.9, 0.8, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        Label:
+            text: "Create Password"
+            color: 1, 0.4, 0, 1
+        TextInput:
+            id: name_input
+            hint_text: "Name"
+        TextInput:
+            id: password_input
+            hint_text: "Password"
+            password: True
+        Button:
+            text: "Save"
+            background_color: 1, 0.5, 0, 1
+            on_press: app.save_password()
+        Label:
+            id: status_label
+            text: ""
+            color: 1, 0, 0, 1
+
+<LoginScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+        canvas.before:
+            Color:
+                rgba: 1, 0.9, 0.8, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        Label:
+            text: "Login"
+            color: 1, 0.4, 0, 1
+        TextInput:
+            id: name_input
+            hint_text: "Name"
+        TextInput:
+            id: password_input
+            hint_text: "Password"
+            password: True
+        Button:
+            text: "Login"
+            background_color: 1, 0.5, 0, 1
+            on_press: app.submit_info()
+        Button:
+            text: "Forgot Password?"
+            background_color: 1, 0.6, 0, 1
+            on_press: root.manager.current = 'reset_password'
+        Label:
+            id: login_status
+            text: ""
+            color: 1, 0, 0, 1
+
+<ResetPasswordScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+        canvas.before:
+            Color:
+                rgba: 1, 0.9, 0.8, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        Label:
+            text: "Reset Password"
+            color: 1, 0.4, 0, 1
+        TextInput:
+            id: name_input
+            hint_text: "Name"
+        TextInput:
+            id: new_password_input
+            hint_text: "New Password"
+            password: True
+        Button:
+            text: "Reset"
+            background_color: 1, 0.5, 0, 1
+            on_press: app.reset_password()
+        Label:
+            id: status_label
+            text: ""
+            color: 1, 0, 0, 1
+
+<CategoryScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+        canvas.before:
+            Color:
+                rgba: 1, 0.9, 0.8, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        Label:
+            text: "Select Category"
+            color: 1, 0.4, 0, 1
+        Button:
+            text: "Fruits & Vegetables"
+            background_color: 1, 0.5, 0, 1
+            on_press: app.open_category('fruits_vegetables')
+        Button:
+            text: "Grains"
+            background_color: 1, 0.5, 0, 1
+            on_press: app.open_category('grains')
+        Button:
+            text: "Non-Veg"
+            background_color: 1, 0.5, 0, 1
+            on_press: app.open_category('non_veg')
+        Button:
+            text: "Dairy"
+            background_color: 1, 0.5, 0, 1
+            on_press: app.open_category('dairy')
+        Button:
+            text: "Others"
+            background_color: 1, 0.5, 0, 1
+            on_press: app.open_category('others')
+
+<CategoryEntryScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 15
+        spacing: 10
+        canvas.before:
+            Color:
+                rgba: 1, 0.95, 0.85, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        BoxLayout:
+            size_hint_y: None
+            height: '40dp'
+            Button:
+                text: "< Back"
+                background_color: 1, 0.6, 0, 1
+                on_press: root.manager.current = 'category'
+        Label:
+            id: category_label
+            text: "Inventory"
+            color: 1, 0.4, 0, 1
+        TextInput:
+            id: item_input
+            hint_text: "Item Name"
+        TextInput:
+            id: mfg_input
+            hint_text: "Manufacture Date"
+        TextInput:
+            id: exp_input
+            hint_text: "Expiry Date (dd/mm/yyyy)"
+        Button:
+            text: "Add Item"
+            background_color: 1, 0.5, 0, 1
+            on_press: app.add_item()
+        Button:
+            text: "Show Inventory"
+            background_color: 1, 0.6, 0, 1
+            on_press: app.show_inventory()
+        ScrollView:
+            BoxLayout:
+                id: inventory_box
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+        Label:
+            id: status_label
+            text: ""
+            color: 1, 0, 0, 1
